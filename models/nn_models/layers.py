@@ -80,6 +80,9 @@ class CustomLinear(nn.Linear):
         out = nn.functional.linear(input, self.get_weight() + proj_weights, self.bias)
         return out
 
+    def update_previous_weights(self):
+        self.previous_weights = self.weight.data.clone()
+
 
 
 class CustomConv2d(nn.Conv2d):
@@ -170,3 +173,6 @@ class CustomConv2d(nn.Conv2d):
 
         out = nn.functional.conv2d(input, self.get_weight() + proj_weights, self.bias, self.stride, self.padding, self.dilation, self.groups)
         return out
+
+    def update_previous_weights(self):
+        self.previous_weights = self.weight.data.clone()
